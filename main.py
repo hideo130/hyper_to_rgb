@@ -8,7 +8,6 @@ from get_sd_fig import get_sd_fig
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib
 import japanize_matplotlib
-from pathlib import Path
 matplotlib.use('Agg')
 
 
