@@ -1,0 +1,5 @@
+colour-science
+PIL
+numpy
+scikit-image
+japanize-matplotlib
