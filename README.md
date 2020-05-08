@@ -22,7 +22,7 @@ curl -O http://colorimaginglab.ugr.es/pages/data/hyperspectral/scene9_sp/! ./dat
 python3 main.py
 ```
 # レンダリング方法
-ハイパースペクトル画像からRGBへのレンダリング方法や現在抱いている疑問は![PDF](./yperspectral.pdf)に書きました．
+ハイパースペクトル画像からRGBへのレンダリング方法や現在抱いている疑問は![PDF](./hyperspectral.pdf)に書きました．
 
 # todo
 光源の分光分布の画像が少し大きいように感じます．
