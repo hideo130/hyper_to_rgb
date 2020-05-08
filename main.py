@@ -3,7 +3,7 @@ from PIL import Image
 import io
 import numpy as np
 from skimage.external.tifffile import imread
-from tiff_to_rgb import tiff_to_rgb
+from hsi_to_rgb import hsi_to_rgb
 from get_sd_fig import get_sd_fig
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib
@@ -75,7 +75,7 @@ while True:
         window["_SHOW_"].update("%d nm ~ %d nmを表示" % (400+10*tmp, 400+10*(tmp+1)))
         # print("update img")
     elif event == "Rendering":
-        img = tiff_to_rgb(himg, load_name)
+        img = hsi_to_rgb(himg, load_name)
         display_name = values["__DIST__"]
         # img.save("results/%s_k=1.png" % (display_name))
         img = call_img(img)
@@ -86,7 +86,7 @@ while True:
         display_name = values["__DIST__"]
         load_name = disp_name_to_load_name[display_name]
         print(load_name)
-        img = tiff_to_rgb(himg, load_name)
+        img = hsi_to_rgb(himg, load_name)
         img = call_img(img)
         window['_OUTPUT_'].update(data=img)
         window["_SHOW_"].update("レンダリング画像を表示")
