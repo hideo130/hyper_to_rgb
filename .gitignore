@@ -47,4 +47,5 @@ test/data/legacy_serialized.pt
 .idea
 pix2pixHD/
 .ipynb_checkpoints/
-data.tiff
+data/*
+!.gitkeep
