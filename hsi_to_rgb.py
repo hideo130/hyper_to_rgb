@@ -91,11 +91,11 @@ def hsi_to_rgb(himg, dist_name):
     rgb_img2 = np.where(rgb_img2 < 0, 0, rgb_img2)
     if flag_const_100:
         # HSI画像配布元と同じガンマ補正（ガンマ=0.6）をする
-        print(np.max(rgb_img2))
+        # print(np.max(rgb_img2))
         rgb_img2 = np.power(rgb_img2/255, 0.6)
     else:
         # XYZからsRGBへのレンダリングするためのガンマ補正
-        print(np.max(255*rgb_img2))
+        # print(np.max(255*rgb_img2))
         rgb_img2 = np.where(rgb_img2 <= 0.0031308, 12.92 * rgb_img2, 1.055 * np.power(rgb_img2, 1/2.4) - 0.055)
 
     if flag_const_100:

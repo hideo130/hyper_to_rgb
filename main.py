@@ -7,17 +7,27 @@ from hsi_to_rgb import hsi_to_rgb
 from get_sd_fig import get_sd_fig
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib
+from logging import getLogger, INFO, basicConfig
 import japanize_matplotlib
 matplotlib.use('Agg')
+
+# japanize_matplotlibはimportするだけでmatplotlibで日本語が使えるようになる．
+# flake8を満たすためだけの記述．
+japanize_matplotlib
 
 
 def call_img(img):
     """
     input img:Image object
     return img:画像のbytes型
+    sg.ImageはPNGかGIFしか読み込むことができない．
+    レンダリングしたpng画像やハイパースペクトル画像のpng形式のbytes型を作成し，
+    その後，sg.Imageの引数dataに渡すことで画像を表示している．
     """
     bio = io.BytesIO()
+    # バッファに画像を出力
     img.save(bio, format="PNG")
+    # バッファの全内容の bytes型 をgetvalue()で取得する
     img = bio.getvalue()
     return img
 
@@ -28,6 +38,11 @@ def draw_figure(canvas, figure, loc=(0, 0)):
     figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
     return figure_canvas_agg
 
+
+do_debug = True
+if do_debug:
+    basicConfig(level=INFO)
+logger = getLogger(__name__)
 
 himg = imread("./data/data.tiff")
 himg = himg / 2**16
@@ -62,18 +77,18 @@ fig_canvas_agg = draw_figure(window['canvas'].TKCanvas, figure)
 
 while True:
     event, values = window.read()
-    # print(event)
+    logger.info(event)
     if event in (None, 'Quit'):
         print('exit')
         break
     elif event == "__SLIDER__":
-        # print(values[0])
+        logger.info(values)
         tmp = int(values["__SLIDER__"])
         img = Image.fromarray(np.uint8(himg[:, :, tmp]*255))
         img = call_img(img)
         window['_OUTPUT_'].update(data=img)
         window["_SHOW_"].update("%d nm ~ %d nmを表示" % (400+10*tmp, 400+10*(tmp+1)))
-        # print("update img")
+        logger.info("update img")
     elif event == "Rendering":
         img = hsi_to_rgb(himg, load_name)
         display_name = values["__DIST__"]
@@ -85,7 +100,7 @@ while True:
     elif event == "__DIST__":
         display_name = values["__DIST__"]
         load_name = disp_name_to_load_name[display_name]
-        print(load_name)
+        logger.info(load_name)
         img = hsi_to_rgb(himg, load_name)
         img = call_img(img)
         window['_OUTPUT_'].update(data=img)
