@@ -1,5 +1,8 @@
-colour-science
-PIL
-numpy
-scikit-image
-japanize-matplotlib
+colour==0.1.5
+colour-science==0.3.15
+japanize-matplotlib==1.0.5
+matplotlib==3.2.1
+numpy==1.18.1
+Pillow==7.0.0
+PySimpleGUI==4.16.0
+scikit-image==0.16.2

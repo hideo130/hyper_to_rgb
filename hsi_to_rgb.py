@@ -60,7 +60,7 @@ def hsi_to_rgb(himg, dist_name):
         nhimg = himg[:, :, :44]
         sd_light_source = load_light_distribution(name=dist_name)
 
-    flag_const_100 = True
+    flag_const_100 = False
     ncmf = cmf[:, 1:]
     nmf_multi_ld = ncmf * sd_light_source
     x = nmf_multi_ld[:, 0]
@@ -97,7 +97,7 @@ def hsi_to_rgb(himg, dist_name):
         # XYZからsRGBへのレンダリングするためのガンマ補正
         # print(np.max(255*rgb_img2))
         rgb_img2 = np.where(rgb_img2 <= 0.0031308, 12.92 * rgb_img2, 1.055 * np.power(rgb_img2, 1/2.4) - 0.055)
-
+    rgb_img2 = np.clip(rgb_img2, 0, 1)
     if flag_const_100:
         img = Image.fromarray(np.uint8(255*rgb_img2))
     else:

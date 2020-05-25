@@ -87,12 +87,13 @@ while True:
         img = Image.fromarray(np.uint8(himg[:, :, tmp]*255))
         img = call_img(img)
         window['_OUTPUT_'].update(data=img)
-        window["_SHOW_"].update("%d nm ~ %d nmを表示" % (400+10*tmp, 400+10*(tmp+1)))
+        window["_SHOW_"].update("%d nm ~ %d nmを表示" %
+                                (400+10*tmp, 400+10*(tmp+1)))
         logger.info("update img")
     elif event == "Rendering":
         img = hsi_to_rgb(himg, load_name)
         display_name = values["__DIST__"]
-        # img.save("results/%s_k=1.png" % (display_name))
+        # img.save("results/%s_10.png" % (display_name))
         img = call_img(img)
         window['_OUTPUT_'].update(data=img)
         window["_SHOW_"].update("レンダリング画像を表示")
