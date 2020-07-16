@@ -46,7 +46,7 @@ logger = getLogger(__name__)
 
 himg = imread("./data/data.tiff")
 himg = himg / 2**16
-himg = himg[::2, ::2, :]
+himg = himg[::3, ::3, :]
 img = Image.fromarray(np.uint8(himg[:, :, 0]*255))
 img = call_img(img)
 disp_name_to_load_name = {"標準光源D65": "./csvs/D65.csv", '標準光源A': "./csvs/A.csv",
