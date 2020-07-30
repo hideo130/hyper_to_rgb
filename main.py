@@ -1,14 +1,16 @@
-import PySimpleGUI as sg
-from PIL import Image
 import io
-import numpy as np
-from skimage.external.tifffile import imread
-from hsi_to_rgb import hsi_to_rgb
-from get_sd_fig import get_sd_fig
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import matplotlib
-from logging import getLogger, INFO, basicConfig
+from logging import INFO, basicConfig, getLogger
+
 import japanize_matplotlib
+import matplotlib
+import numpy as np
+import PySimpleGUI as sg
+from get_sd_fig import get_sd_fig
+from hsi_to_rgb import hsi_to_rgb
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from PIL import Image
+from skimage.external.tifffile import imread
+
 matplotlib.use('Agg')
 
 # japanize_matplotlibはimportするだけでmatplotlibで日本語が使えるようになる．
@@ -39,7 +41,7 @@ def draw_figure(canvas, figure, loc=(0, 0)):
     return figure_canvas_agg
 
 
-do_debug = True
+do_debug = False
 if do_debug:
     basicConfig(level=INFO)
 logger = getLogger(__name__)
@@ -85,6 +87,7 @@ while True:
         logger.info(values)
         tmp = int(values["__SLIDER__"])
         img = Image.fromarray(np.uint8(himg[:, :, tmp]*255))
+        # img.save("results/%dnm~%dnm.png" % (400+10*tmp, 400+10*(tmp+1)))
         img = call_img(img)
         window['_OUTPUT_'].update(data=img)
         window["_SHOW_"].update("%d nm ~ %d nmを表示" %
@@ -93,7 +96,7 @@ while True:
     elif event == "Rendering":
         img = hsi_to_rgb(himg, load_name)
         display_name = values["__DIST__"]
-        # img.save("results/%s_10.png" % (display_name))
+        # img.save("results/%s.png" % (display_name))
         img = call_img(img)
         window['_OUTPUT_'].update(data=img)
         window["_SHOW_"].update("レンダリング画像を表示")

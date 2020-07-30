@@ -1,6 +1,6 @@
-from colour import SpectralDistribution
-import numpy as np
 import colour
+import numpy as np
+from colour import SpectralDistribution
 
 
 def load_light_distribution(name="lamp_spectrum.csv"):
